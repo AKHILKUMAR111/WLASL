@@ -81,6 +81,6 @@ Please be kindly advised that if you decode with different FPS, you may need to 
 Constituting subsets
 ---------------
 As described in the paper, four subsets WLASL100, WLASL300, WLASL1000 and WLASL2000 are constructed by taking the top-K (k=100, 300, 1000 and 2000) glosses from the `WLASL_vx.x.json` file.
-
+We have used WLASL100 subsets you can use the one according to your need.
 
 94/WLASL.svg)](https://starchart.cc/dxli94/WLASL)
