@@ -136,13 +136,41 @@ To test the model, first download [pre-trained models](https://drive.google.com/
 python test_tgcn.py
 ```
 
+Exporting Your Trained Pose Transformer From Notebook
+---------------
+If you trained the Pose Transformer in `start_kit/train_transformer.ipynb`, you can export weights and the `id_to_gloss` mapping:
+
+1) In a new cell near the end of training, run:
+```
+from notebook_export_helpers import save_model_state, save_id_to_gloss_from_gloss_to_id
+
+# Assuming `model` is your trained PoseTransformer and `gloss_to_id` is available
+save_model_state(model, "start_kit/pose_transformer.pth")
+save_id_to_gloss_from_gloss_to_id(gloss_to_id, "start_kit/id_to_gloss.json")
+```
+
+2) Use these artifacts with the real-time demo below.
+
 License
 ---------------
 Licensed under the Computational Use of Data Agreement (C-UDA). Plaese refer to `C-UDA-1.0.pdf` for more information.
 
-Disclaimer
+Real-time Sign-to-Gloss Demo (Pose Transformer)
 ---------------
-All the WLASL data is intended for academic and computational use only. No commercial usage is allowed. We highly respect copyright and privacy. If you find WLASL violates your rights, please contact us.
+We provide a lightweight real-time demo that uses OpenCV + MediaPipe Pose and your trained Pose Transformer model.
+
+1) Ensure your Python environment has `mediapipe`, `opencv-python`, and `torch` installed.
+
+2) Run the demo (ESC to quit, press `c` to clear the rolling buffer):
+```
+python start_kit/realtime_gloss.py --weights /path/to/model.pth --classes NUM_CLASSES --id2gloss /path/to/id_to_gloss.json --camera 0 --show-skeleton
+```
+
+Notes:
+- The script expects the same preprocessing used during training: 33 pose landmarks × (x,y,z,visibility), nose-centered normalization, and padding/truncation to 100 frames.
+- `--id2gloss` can be either a JSON list like ["yes", "no", ...] or a mapping {"0": "yes", ...}.
+
+
 
 
 
